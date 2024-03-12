@@ -12,6 +12,10 @@ class BlogEditor extends StatelessWidget {
       controller: controller,
       maxLines: null,
       decoration: InputDecoration(hintText: hintText),
+      validator: (value) {
+        if (value!.trim().isEmpty) return "$hintText is Empty";
+        return null;
+      },
     );
   }
 }

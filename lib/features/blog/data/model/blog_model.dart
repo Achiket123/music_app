@@ -9,52 +9,55 @@ class BlogModel extends Blog {
     required super.imageURL,
     required super.topics,
     required super.updatedAt,
+    super.posterName,
   });
 
   Map<String, dynamic> toJson() {
+    print(' kya ho ');
     return <String, dynamic>{
       'id': id,
-      'posterId': posterId,
+      'poster_id': posterId,
       'title': title,
       'content': content,
-      'imageUrl': imageURL,
+      'image_url': imageURL,
       'topics': topics,
-      'updatedAt': updatedAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
     };
   }
 
   factory BlogModel.fromjson(Map<String, dynamic> map) {
     return BlogModel(
-        id: map['id'] as String,
-        posterId: map['posterId'] as String,
-        title: map['title'] as String,
-        content: map['content'] as String,
-        imageURL: map['imageURL'] as String,
+        id: "${map['id']}",
+        posterId: "${map['poster_id']}",
+        title: "${map['title']}",
+        content: "${map['content']}",
+        imageURL: "${map['image_url']}",
         topics: List<String>.from(map['topics'] ?? []),
-        updatedAt: map['updatedAt'] == null
-            ? DateTime.now()
-            : DateTime.parse(
-                map['updateAt'])); // List. from // Blog Expected to find ')'.
+        updatedAt: map['updated_at'] == null
+            ? DateTime.parse(map['update_at'])
+            : DateTime.now()); // List. from // Blog Expected to find ')'.
   }
 
-
-  
-BlogModel copyWith({
-String? id,
-String? posterId,
-String? title,
-String? content,
-String? imageURL,
-List<String>? topics,
-DateTime? updatedAt,
-}) {
-return BlogModel (
-id: id ?? this.id,
-posterId: posterId ?? this.posterId,
-title: title ?? this.title,
-content: content ?? this.content,
-imageURL: imageURL ?? this.imageURL,
-topics: topics ?? this.topics,
-updatedAt: updatedAt ?? this.updatedAt,
-);}
+  BlogModel copyWith({
+    String? id,
+    String? posterId,
+    String? title,
+    String? content,
+    String? imageURL,
+    List<String>? topics,
+    DateTime? updatedAt,
+    String? posterName,
+  }) {
+    print('erroe');
+    return BlogModel(
+      id: id ?? this.id,
+      posterId: posterId ?? this.posterId,
+      title: title ?? this.title,
+      content: content ?? this.content,
+      imageURL: imageURL ?? this.imageURL,
+      topics: topics ?? this.topics,
+      updatedAt: updatedAt ?? this.updatedAt,
+      posterName: posterName?? this.posterName,
+    );
+  }
 }

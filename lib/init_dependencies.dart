@@ -11,6 +11,7 @@ import 'package:music_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:music_app/features/blog/data/datasources/blog_remot_data_source.dart';
 import 'package:music_app/features/blog/data/repository/blog_repository_impl.dart';
 import 'package:music_app/features/blog/domain/repositories/blog_repositories.dart';
+import 'package:music_app/features/blog/domain/usecases/get_all_blogs.dart';
 import 'package:music_app/features/blog/domain/usecases/upload_blog.dart';
 import 'package:music_app/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -53,10 +54,19 @@ void _initAuth() {
 
 void _initBlog() {
   serviceLocator
+
+    // data Source
     ..registerFactory<BlogRemoteDataSource>(
         () => BlogRemoteDataSourceImpl(supabaseClient: serviceLocator()))
+
+    // Repository
     ..registerFactory<BlogRepository>(
         () => BlogRepositoryImpl(blogRemoteDataSource: serviceLocator()))
+
+    // usecase
     ..registerFactory(() => UploadBlog(blogRepository: serviceLocator()))
-    ..registerLazySingleton(() => BlogBloc(serviceLocator()));
+    ..registerFactory(() => GetAllBlogs(blogRepository: serviceLocator()))
+    // bloc
+    ..registerLazySingleton(() =>
+        BlogBloc(uploadBlog: serviceLocator(), allBlog: serviceLocator()));
 }

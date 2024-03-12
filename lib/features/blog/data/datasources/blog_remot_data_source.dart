@@ -8,6 +8,8 @@ abstract interface class BlogRemoteDataSource {
   Future<BlogModel> uploadBlog(BlogModel blog);
   Future<String> uploadBlogImage(
       {required File image, required BlogModel blogModel});
+
+  Future<List<BlogModel>> getAllBlogs();
 }
 
 class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
@@ -30,8 +32,26 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
   Future<String> uploadBlogImage(
       {required File image, required BlogModel blogModel}) async {
     try {
-      await supabaseClient.storage.from('blog_images').upload(blogModel.id, image);
-      return supabaseClient.storage.from('bolg_images').getPublicUrl(blogModel.id);
+      await supabaseClient.storage
+          .from('blog_images')
+          .upload(blogModel.id, image);
+      return supabaseClient.storage
+          .from('bolg_images')
+          .getPublicUrl(blogModel.id);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<List<BlogModel>> getAllBlogs() async {
+    try {
+      final blogs =
+          await supabaseClient.from('blogs').select('*,profiles (name)');
+      return blogs
+          .map((blog) =>
+              BlogModel.fromjson(blog).copyWith(posterName: blog['profiles']['name']))
+          .toList();
     } catch (e) {
       throw ServerException(e.toString());
     }

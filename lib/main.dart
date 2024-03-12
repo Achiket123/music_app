@@ -3,6 +3,7 @@ import 'package:music_app/core/common/cubit/cubit/app_user_cubit.dart';
 import 'package:music_app/core/theme/theme.dart';
 import 'package:music_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:music_app/features/auth/presentation/pages/login_page.dart';
+import 'package:music_app/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:music_app/features/blog/presentation/pages/blog_page.dart';
 import 'package:music_app/init_dependencies.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +15,8 @@ void main() async {
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (create) => serviceLocator<AppUserCubit>()),
-      BlocProvider(create: (create) => serviceLocator<AuthBloc>())
+      BlocProvider(create: (create) => serviceLocator<AuthBloc>()),
+      BlocProvider(create: (create) => serviceLocator<BlogBloc>())
     ],
     child: const MyApp(),
   ));
