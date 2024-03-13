@@ -21,9 +21,9 @@ Welcome to the Flutter Blog App! This application is a demonstration of how Clea
 
 - **Flutter**: A cross-platform UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
 - **Dart**: The programming language used for developing Flutter applications.
-- **Firebase Authentication**: For user authentication and management.
-- **Firestore**: A flexible, scalable database for storing and syncing data in real-time.
-- **Provider**: A state management solution for Flutter applications, used to manage application state and data flow.
+- **Supabase Authentication**: For user authentication and management.
+- **Supabase**: A flexible, scalable database for storing and syncing data in real-time.
+- **Bloc**: A state management solution for Flutter applications, used to manage application state and data flow.
 - **Clean Architecture**: A software design approach that separates concerns and enforces a clear separation of dependencies between layers.
 - **SOLID Principles**: A set of five design principles that promote modular, maintainable, and scalable code.
 
