@@ -2,6 +2,13 @@
 
 Welcome to the Flutter Blog App! This application is a demonstration of how Clean Architecture and SOLID principles can be applied in Flutter development to build scalable, maintainable, and well-structured mobile applications.
 
+## Screenshots
+
+   ![Screenshot Title](/assets/%20%20%20(1).png)
+   ![Screenshot Title](/assets/%20%20%20(2).png)
+   ![Screenshot Title](/assets/%20%20%20(3).png)
+   ![Screenshot Title](/assets/%20%20%20(4).png)
+
 ## Features
 
 - **User Authentication**: Users can sign up, log in, and log out securely to access the app.
@@ -28,3 +35,35 @@ To get started with the Flutter Blog App, follow these steps:
 
    ```bash
    git clone https://github.com/yourusername/flutter-blog-app.git
+
+2. Install Dependencies:
+
+   ```bash
+   flutter pub get
+
+3. Run the app:
+
+   ```bash
+   flutter run
+
+# Folder Structure
+
+   The project follows a modular folder structure based on Clean Architecture principles:
+
+- data: Contains data layer components such as repositories, data sources, and models.
+- domain: Defines domain layer entities, use cases, and repository interfaces.
+- presentation: Contains presentation layer components including UI screens, widgets, and view models.
+
+## Contributing
+
+   Contributions are welcome! If you have any ideas for new features, improvements, or bug fixes, feel free to open an issue or submit a pull request.
+
+## License
+
+   This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgements
+
+- Flutter
+- Firebase
+- Provider

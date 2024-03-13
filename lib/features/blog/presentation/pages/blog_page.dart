@@ -46,7 +46,7 @@ class _BlogPageState extends State<BlogPage> {
           return const Loader();
         }
         if (state is BlogDisplaySuccess) {
-          print(state.blogs);
+          
           return ListView.builder(
               itemCount: state.blogs.length,
               itemBuilder: (context, index) {

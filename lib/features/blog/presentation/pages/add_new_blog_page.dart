@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/core/common/cubit/cubit/app_user_cubit.dart';
 import 'package:music_app/core/common/widgets/loader.dart';
+import 'package:music_app/core/constant/constants.dart';
 import 'package:music_app/core/theme/app_pallete.dart';
 import 'package:music_app/core/utils/pick_image.dart';
 import 'package:music_app/core/utils/show_snackbar.dart';
@@ -146,12 +147,7 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: [
-                          'Technology',
-                          'Business',
-                          'Pprogramming',
-                          'Entertainment'
-                        ]
+                        children: Constants.topics
                             .map((e) => Padding(
                                   padding:
                                       const EdgeInsets.only(top: 5, right: 5),

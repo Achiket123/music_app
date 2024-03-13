@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:fpdart/fpdart.dart';
 import 'package:music_app/core/error/exceptions.dart';
 import 'package:music_app/core/error/failures.dart';
+import 'package:music_app/core/network/connection_checker.dart';
+import 'package:music_app/features/auth/data/datasources/blog_local_data_source.dart';
 import 'package:music_app/features/blog/data/datasources/blog_remot_data_source.dart';
 import 'package:music_app/features/blog/data/model/blog_model.dart';
 import 'package:music_app/features/blog/domain/entities/blog.dart';
@@ -10,8 +12,8 @@ import 'package:uuid/uuid.dart';
 
 class BlogRepositoryImpl implements BlogRepository {
   final BlogRemoteDataSource blogRemoteDataSource;
-
-  BlogRepositoryImpl({required this.blogRemoteDataSource});
+  final ConnectionChecker connectionChecker;
+  BlogRepositoryImpl(this.connectionChecker, this.blogRemoteDataSource);
   @override
   Future<Either<Failure, Blog>> uploadBlog(
       {required File image,
@@ -20,6 +22,9 @@ class BlogRepositoryImpl implements BlogRepository {
       required String posterId,
       required List<String> topics}) async {
     try {
+      if (!await (connectionChecker.isConnected)) {
+        return left(Failure(message: 'No Internet'));
+      }
       BlogModel blogModel = BlogModel(
           id: const Uuid().v1(),
           posterId: posterId,
@@ -43,6 +48,18 @@ class BlogRepositoryImpl implements BlogRepository {
   @override
   Future<Either<Failure, List<Blog>>> getAllBlog() async {
     try {
+      if (!await (connectionChecker.isConnected)) {
+        return right([
+          Blog(
+              id: '1',
+              posterId: '',
+              title: 'Internet Not Connected',
+              content: 'Connect to the internet and try again',
+              imageURL: '',
+              topics: ['Internet', ' Missing'],
+              updatedAt: DateTime.now()),
+        ]);
+      }
       final blogs = await blogRemoteDataSource.getAllBlogs();
       return right(blogs);
     } on ServerException catch (e) {
